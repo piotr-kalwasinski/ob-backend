@@ -8,7 +8,7 @@ function next_sunday {
     // Pobieramy dzień tygodnia z timestampa (0=niedziela, 1=poniedziałek, ..., 6=sobota)
     // Niestety XanoScript używa innej konwencji gdzie niedziela = 7
     var $day_of_week {
-      value = $input.current_time|format_timestamp:"U"
+      value = $input.current_time|format_timestamp:"N"
     }
   
     // Obliczamy ile dni do niedzieli
