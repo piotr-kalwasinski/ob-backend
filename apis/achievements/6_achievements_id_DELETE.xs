@@ -1,6 +1,7 @@
 // Delete achievement record.
 query "achievements/{id}" verb=DELETE {
   api_group = "Achievements"
+  auth = "user"
 
   input {
     uuid achievements_id?

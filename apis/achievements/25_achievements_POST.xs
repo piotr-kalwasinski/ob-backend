@@ -1,6 +1,7 @@
 // Add achievement record
 query achievements verb=POST {
   api_group = "Achievements"
+  auth = "user"
 
   input {
     dblink {
