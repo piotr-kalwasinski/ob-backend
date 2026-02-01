@@ -31,7 +31,7 @@ query user_weekly_goal verb=GET {
           input = {current_time: now, timezone: "UTC"}
         } as $monday
       
-        function.run next_sunday {
+        function.run add_seven_days {
           input = {current_time: now}
         } as $sunday
       

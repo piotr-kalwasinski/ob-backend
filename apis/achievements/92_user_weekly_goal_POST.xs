@@ -16,7 +16,7 @@ query user_weekly_goal verb=POST {
       error_type = "accessdenied"
     }
   
-    function.run next_sunday {
+    function.run add_seven_days {
       input = {current_time: now}
     } as $sunday
   

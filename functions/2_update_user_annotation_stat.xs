@@ -9,7 +9,7 @@ function updateUserAnnotationStat {
       input = {current_time: now, timezone: "UTC"}
     } as $func1
   
-    function.run next_sunday {
+    function.run add_seven_days {
       input = {current_time: now}
     } as $func2
   
