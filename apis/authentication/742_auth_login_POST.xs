@@ -29,16 +29,10 @@ query "auth/login" verb=POST {
       error = "Invalid Credentials."
     }
   
-    db.edit user {
-      field_name = "id"
-      field_value = $user.id
-      data = {last_login: now}
-    } as $user1
-  
     security.create_auth_token {
       table = "user"
       extras = {}
-      expiration = 604800
+      expiration = 86400
       id = $user.id
     } as $authToken
   }
