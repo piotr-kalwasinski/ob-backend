@@ -10,7 +10,7 @@ function updateUserAnnotationStat {
     } as $func1
   
     function.run add_seven_days {
-      input = {current_time: now}
+      input = {input_date: $func1}
     } as $func2
   
     db.query user_weekly_goal {
