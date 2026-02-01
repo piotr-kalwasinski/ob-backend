@@ -16,13 +16,13 @@ query user_weekly_goal verb=POST {
       error_type = "accessdenied"
     }
   
-    function.run add_seven_days {
-      input = {current_time: now}
-    } as $sunday
-  
     function.run get_monday {
       input = {current_time: now, timezone: ""}
     } as $monday
+  
+    function.run add_seven_days {
+      input = {input_date: $monday}
+    } as $sunday
   
     db.add user_weekly_goal {
       data = {
