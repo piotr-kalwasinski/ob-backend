@@ -1,6 +1,7 @@
 // Get achievement record
 query "achievements/{id}" verb=GET {
   api_group = "Achievements"
+  auth = "user"
 
   input {
     uuid achievements_id?

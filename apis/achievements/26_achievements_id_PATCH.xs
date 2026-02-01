@@ -1,6 +1,7 @@
 // Edit achievement record
 query "achievements/{id}" verb=PATCH {
   api_group = "Achievements"
+  auth = "user"
 
   input {
     uuid achievements_id?
