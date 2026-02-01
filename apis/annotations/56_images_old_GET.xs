@@ -1,5 +1,5 @@
 // Query all image records
-query images verb=GET {
+query images_old verb=GET {
   api_group = "Annotations"
   auth = "user"
 
