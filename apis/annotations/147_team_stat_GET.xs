@@ -6,7 +6,11 @@ query team_stat verb=GET {
   }
 
   stack {
+    db.query team_stat {
+      sort = {team_stat.total_photos_annoted: "desc"}
+      return = {type: "list"}
+    } as $team_stat1
   }
 
-  response = null
+  response = $team_stat1
 }

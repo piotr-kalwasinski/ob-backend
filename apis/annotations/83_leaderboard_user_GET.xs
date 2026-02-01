@@ -13,21 +13,35 @@ query leaderboard_user verb=GET {
       field_value = $input.user_id
     } as $user
   
-    db.get user_stat {
-      field_name = "user_id"
-      field_value = $user.id
-    } as $user_stat
-  
-    var $keys {
-      value = ["name", "annotations"]
-    }
-  
-    var $values {
-      value = [$user.name, $user_stat.total_photos_described]
-    }
-  
     var $score {
-      value = $keys|create_object:$values
+      value = ""
+    }
+  
+    conditional {
+      if ($user.name_or_pseudonym == null) {
+        var.update $score {
+          value = null
+        }
+      }
+    
+      else {
+        db.get user_stat {
+          field_name = "user_id"
+          field_value = $user.id
+        } as $user_stat
+      
+        var $keys {
+          value = ["name", "annotations"]
+        }
+      
+        var $values {
+          value = [$user.name, $user_stat.total_photos_described]
+        }
+      
+        var.update $score {
+          value = $keys|create_object:$values
+        }
+      }
     }
   }
 
