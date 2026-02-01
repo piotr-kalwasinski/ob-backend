@@ -32,7 +32,7 @@ query user_weekly_goal verb=GET {
         } as $monday
       
         function.run add_seven_days {
-          input = {current_time: now}
+          input = {input_date: $monday}
         } as $sunday
       
         var $end_timestamp {
