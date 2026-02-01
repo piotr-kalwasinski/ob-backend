@@ -22,7 +22,12 @@ query user_weekly_goal verb=GET {
     } as $user_weekly_goal1
   
     var $current_timestamp {
-      value = now|format_timestamp:"U":"UTC"
+      value = now
+    }
+  
+    var $check_date {
+      value = now
+        |format_timestamp:"Y-m-d H:i:s":"UTC"
     }
   
     conditional {
@@ -36,7 +41,7 @@ query user_weekly_goal verb=GET {
         } as $sunday
       
         var $end_timestamp {
-          value = `$var.sunday |format_timestamp:"U":"UTC"`
+          value = ($sunday|concat:" 23:59:59")|parse_timestamp:"Y-m-d H:i:s":"UTC"
         }
       
         var $initial_goal {
@@ -60,7 +65,7 @@ query user_weekly_goal verb=GET {
         }
       
         var $days_remaining {
-          value = (($end_timestamp - $current_timestamp) / 86400)|ceil
+          value = (($end_timestamp - $current_timestamp) / 86400000)|floor
         }
       
         var $goal_image {
@@ -80,7 +85,7 @@ query user_weekly_goal verb=GET {
             user_id         : $auth.id
             weekly_goal_id  : $initial_goal
             start_of_week   : $monday
-            end_of_the_week : $sunday
+            end_of_the_week : $end_timestamp
           }
         } as $user_weekly_goal2
       }
@@ -113,11 +118,11 @@ query user_weekly_goal verb=GET {
         }
       
         var $end_timestamp {
-          value = $user_weekly_goal1.end_of_the_week|format_timestamp:"U":"UTC"
+          value = `$user_weekly_goal1.end_of_the_week`
         }
       
         var $days_remaining {
-          value = (($end_timestamp - $current_timestamp) / 86400)|ceil
+          value = (($end_timestamp - $current_timestamp) / 86400000)|floor
         }
       
         conditional {
