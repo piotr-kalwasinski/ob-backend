@@ -42,9 +42,14 @@ query "leaderboard/teams" verb=GET {
       }
     
       sort = {team_stat.total_photos_annoted: "desc"}
-      eval = {team: $db.team.name}
+      eval = {
+        team                : $db.team.name
+        total_photo_desribed: $db.team_stat.total_photos_annoted
+        total_photo_added   : $db.team_stat.total_photos_added
+      }
+    
       return = {type: "list"}
-      output = ["total_photos_annoted", "total_photos_added", "team"]
+      output = ["team", "total_photo_desribed", "total_photo_added"]
     } as $team_leaderboard
   }
 
