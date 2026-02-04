@@ -35,6 +35,12 @@ query "auth/login" verb=POST {
       expiration = 604800
       id = $user.id
     } as $authToken
+  
+    db.edit user {
+      field_name = "id"
+      field_value = $user.id
+      data = {last_login: now}
+    } as $user1
   }
 
   response = {authToken: $authToken}
