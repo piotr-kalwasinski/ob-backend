@@ -21,6 +21,8 @@ function icrement_annotated_photos {
             last_activity_date    : ""
             user_id               : $input.user_id
             weekly_goal_record    : 0
+            annotation_streak_days: 1
+            streak_update         : null
           }
         } as $user_stat2
       }
