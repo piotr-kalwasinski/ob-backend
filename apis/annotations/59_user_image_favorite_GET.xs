@@ -18,7 +18,7 @@ query user_image_favorite verb=GET {
     }
   
     db.query user_image_favorite {
-      where = $db.user_image_favorite.user_id == $auth.id && $db.user_image_favorite.is_favorite
+      where = $db.user_image_favorite.user_id == $auth.id && $db.user_image_favorite.is_favorite == true
       return = {type: "list"}
     } as $favorite_images
   

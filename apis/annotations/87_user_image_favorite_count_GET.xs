@@ -13,7 +13,7 @@ query user_image_favorite_count verb=GET {
   
     precondition ($user1 != null)
     db.query user_image_favorite {
-      where = $db.user_image_favorite.user_id == $auth.id && $db.user_image_favorite.is_favorite
+      where = $db.user_image_favorite.user_id == $auth.id && $db.user_image_favorite.is_favorite == true
       return = {type: "count"}
     } as $image_favorite_count
   }

@@ -25,7 +25,7 @@ query "user_image_favorite/{image_id}" verb=DELETE {
   
     db.del user_image_favorite {
       field_name = "id"
-      field_value = $image_to_delete
+      field_value = $image_to_delete.id
     }
   }
 
