@@ -22,12 +22,6 @@ query "auth/me" verb=GET {
         } as $team
       }
     }
-  
-    db.edit user {
-      field_name = "id"
-      field_value = $user.id
-      data = {last_login: now}
-    } as $user1
   }
 
   response = {
