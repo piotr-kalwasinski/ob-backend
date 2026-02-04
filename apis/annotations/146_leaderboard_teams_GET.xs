@@ -49,7 +49,7 @@ query "leaderboard/teams" verb=GET {
       }
     
       return = {type: "list"}
-      output = ["team", "total_photo_desribed", "total_photo_added"]
+      output = ["total_photos_added", "team", "total_photo_desribed"]
     } as $team_leaderboard
   }
 
