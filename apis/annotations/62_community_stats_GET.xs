@@ -71,7 +71,7 @@ query community_stats verb=GET {
   response = {
     num_desc        : $annotation1
     photo_to_desc   : $x1
-    since_last_visit: 47
+    since_last_visit: $annotation3
   }
 
   tags = ["stat"]
