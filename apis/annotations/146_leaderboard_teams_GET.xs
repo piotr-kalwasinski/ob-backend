@@ -31,7 +31,21 @@ query "leaderboard/teams" verb=GET {
         }
       }
     } as $team_leaderboard
+  
+    db.query team_stat {
+      join = {
+        team: {
+          table: "team"
+          type : "left"
+          where: $db.team_stat.team_id == $db.team.id
+        }
+      }
+    
+      sort = {team_stat.total_photos_annoted: "desc"}
+      eval = {team_name: $db.team.name}
+      return = {type: "list"}
+    } as $team_stat1
   }
 
-  response = $team_leaderboard
+  response = $team_stat1
 }
