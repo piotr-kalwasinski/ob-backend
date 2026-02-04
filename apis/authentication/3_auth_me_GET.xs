@@ -22,6 +22,10 @@ query "auth/me" verb=GET {
         } as $team
       }
     }
+  
+    function.run check_last_annotation {
+      input = {user_id: $user.id}
+    } as $func1
   }
 
   response = {
