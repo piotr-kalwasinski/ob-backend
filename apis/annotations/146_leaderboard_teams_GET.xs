@@ -48,5 +48,5 @@ query "leaderboard/teams" verb=GET {
     } as $team_stat1
   }
 
-  response = {team_leaderboard: $team_stat1}
+  response = $team_leaderboard
 }
