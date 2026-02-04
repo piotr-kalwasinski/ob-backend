@@ -55,7 +55,7 @@ query user_stats verb=GET {
   }
 
   response = {
-    consecutive_days       : $consecutive_days
+    consecutive_days       : $user_stat1.annotation_streak_days
     top_weekly_descriptions: $user_stat1.weekly_goal_record
     added_pictures         : $user_stat1.total_photos_uploaded
     described_pictures     : $user_stat1.total_photos_described
