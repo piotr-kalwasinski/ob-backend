@@ -43,6 +43,10 @@ function icrement_annotated_photos {
     function.run icrement_team_annotated {
       input = {user_id: $input.user_id}
     } as $func1
+  
+    function.run increment_streak_days {
+      input = {user_id: $input.user_id}
+    } as $func2
   }
 
   response = "OK"
