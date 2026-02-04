@@ -35,5 +35,6 @@ query "auth/me" verb=GET {
     email     : $user.email
     teamName  : ($user.team_id != null ? $team.name : null)
     avatarUrl : $user.avatar_path
+    team_id   : $user.team_id
   }
 }
