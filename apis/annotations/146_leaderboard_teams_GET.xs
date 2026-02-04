@@ -45,7 +45,7 @@ query "leaderboard/teams" verb=GET {
       eval = {team: $db.team.name}
       return = {type: "list"}
       output = ["total_photos_annoted", "total_photos_added", "team"]
-    } as $team_stat1
+    } as $team_leaderboard
   }
 
   response = $team_leaderboard
