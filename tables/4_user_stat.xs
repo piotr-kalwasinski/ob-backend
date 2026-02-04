@@ -17,6 +17,8 @@ table user_stat {
   
     // liczba dni ile z rzedu z opisami od usera
     int annotation_streak_days?
+  
+    timestamp? streak_update?
   }
 
   index = [
