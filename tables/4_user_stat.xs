@@ -14,6 +14,9 @@ table user_stat {
     }
   
     int weekly_goal_record?
+  
+    // liczba dni ile z rzedu z opisami od usera
+    int annotation_streak_days?
   }
 
   index = [
