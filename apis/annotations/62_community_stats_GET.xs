@@ -6,6 +6,11 @@ query community_stats verb=GET {
   }
 
   stack {
+    db.get user {
+      field_name = "id"
+      field_value = $auth.id
+    } as $user1
+  
     // Wszystkie dostepne opisy
     db.query annotation {
       return = {type: "count"}
@@ -37,8 +42,18 @@ query community_stats verb=GET {
     var $x1 {
       value = $image1 - $annotation2
     }
+  
+    db.query annotation {
+      where = $db.annotation.created_at >= $user1.last_login
+      return = {type: "count"}
+    } as $annotation3
   }
 
-  response = {num_desc: $annotation1, photo_to_desc: $x1}
+  response = {
+    num_desc        : $annotation1
+    photo_to_desc   : $x1
+    since_last_visit: 47
+  }
+
   tags = ["stat"]
 }
