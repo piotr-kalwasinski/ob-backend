@@ -27,7 +27,7 @@ query "external_image_v2_ak/display" verb=GET {
       }
     }
   
-    // Fetch the image data from the external image service using the prepared URL.
+    // Zapytanie z Aktywakcja V2
     api.request {
       url = $x1_url
       method = "GET"
