@@ -3,16 +3,18 @@ query "external_image_v2_ak/display" verb=GET {
 
   input {
     // The unique identifier for the image to be displayed.
-    text id? filters=trim
+    text? id? filters=trim
   
     // Optional size for the image, allowing it to be scaled.
     int size?
+  
+    text external_url? filters=trim
   }
 
   stack {
     // Construct the base URL for fetching the image from the external service.
     var $x1_url {
-      value = 'https://aktywakcja.bielik.ai/api/images/'~$input.id~'/show'
+      value = $input.external_url
     }
   
     // Conditionally add the image size parameter to the URL if provided.
