@@ -19,7 +19,7 @@ query user_avatar verb=DELETE {
     db.edit user {
       field_name = "id"
       field_value = $auth.id
-      data = {avatar_path: null}
+      data = {avatar_path: ""}
     } as $user2
   }
 
