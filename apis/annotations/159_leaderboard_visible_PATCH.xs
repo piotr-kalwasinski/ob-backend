@@ -24,5 +24,5 @@ query "leaderboard/visible" verb=PATCH {
     } as $user2
   }
 
-  response = {leaderboard: $user_stat1}
+  response = "OK"
 }
