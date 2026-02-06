@@ -19,7 +19,7 @@ query "leaderboard/visible" verb=PATCH {
   
     db.edit user {
       field_name = "id"
-      field_value = ""
+      field_value = $auth.id
       data = {leaderbord_visible: $input.visible}
     } as $user2
   }
