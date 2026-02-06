@@ -8,6 +8,8 @@ table ideas {
     uuid? user_id? {
       table = "user"
     }
+  
+    text idea? filters=trim|max:1000
   }
 
   index = [
