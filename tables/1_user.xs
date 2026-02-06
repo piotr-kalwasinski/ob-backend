@@ -28,6 +28,9 @@ table user {
     bool privacy_consent?
     bool service_consent?
     text avatar_path? filters=trim
+  
+    // czy user widoczny w leaderboard
+    bool leaderbord_visible?=true
   }
 
   index = [
