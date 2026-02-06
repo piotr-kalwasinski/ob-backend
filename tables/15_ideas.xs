@@ -5,6 +5,9 @@ table ideas {
   schema {
     uuid id
     timestamp created_at?=now
+    uuid? user_id? {
+      table = "user"
+    }
   }
 
   index = [
