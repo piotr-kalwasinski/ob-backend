@@ -11,7 +11,7 @@ query leaderboard verb=GET {
         user: {table: "user", where: $db.user_stat.user_id == $db.user.id}
       }
     
-      where = $db.user.name != ""
+      where = $db.user.name != "" && $db.user.leaderbord_visible == true
       sort = {user_stat.total_photos_described: "desc"}
       return = {type: "list"}
       output = [
