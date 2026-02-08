@@ -26,6 +26,7 @@ query get_user_images_with_annotation verb=GET {
         }
       }
     
+      where = $db.image.source_scope == "INTERNAL"
       return = {type: "list"}
       addon = [
         {
