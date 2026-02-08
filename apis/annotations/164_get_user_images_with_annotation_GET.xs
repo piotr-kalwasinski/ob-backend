@@ -20,7 +20,7 @@ query get_user_images_with_annotation verb=GET {
         }
       }
     
-      where = $db.image.uploaded_by_id == $user1.id && $db.image.source_scope == "INTERNAL"
+      where = $db.image.uploaded_by_id == $user1.id
       eval = {
         narrative_description: $db.annotation.narrative_description
         factual_description  : $db.annotation.factual_description
@@ -52,7 +52,7 @@ query get_user_images_with_annotation verb=GET {
         "file_path_oryginal"
         "file_path"
       ]
-    } as $x1_image_annotated_list
+    } as $x1_image_all_annotated
   
     db.query image {
       join = {
@@ -100,7 +100,7 @@ query get_user_images_with_annotation verb=GET {
     // 7. Przygotuj response z obiema listami
     var $result {
       value = {
-        annotated  : $x1_image_annotated_list
+        annotated  : $x1_image_all_annotated
         unannotated: $x1_image_unannotated_list
       }
     }
