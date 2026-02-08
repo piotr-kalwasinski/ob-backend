@@ -18,10 +18,13 @@ query user_images verb=DELETE {
       error = "Authenticated user not found."
     }
   
-    db.del image {
-      field_name = "id"
-      field_value = $input.image_id
-    }
+    db.bulk.delete annotation {
+      where = $db.annotation.image_id == $input.image_id && $db.annotation.user_id == $auth.id
+    } as $annotation1
+  
+    db.bulk.delete image {
+      where = $db.image.id == $input.image_id && $db.image.uploaded_by_id == $auth.id
+    } as $image1
   
     function.run reduction_added_photo {
       input = {user_id: $auth.id}
