@@ -1,4 +1,4 @@
-// Zwraca 2 tablice z opisanymi i nieopisanymi zdjeciami ktore UPLOADOWAL user
+// Zwraca 2 tablice z opisanymi i nieopisanymi zdjeciami ktore uploadowal user
 query user_images verb=GET {
   api_group = "Annotations"
   auth = "user"
@@ -22,7 +22,7 @@ query user_images verb=GET {
       join = {
         annotation: {
           table: "annotation"
-          where: $db.image.id == $db.annotation.image_id && $db.annotation.user_id == $auth.id && $db.image.source ilike "user_upload"
+          where: $db.image.id == $db.annotation.image_id && $db.annotation.user_id == $auth.id
         }
       }
     
@@ -38,7 +38,7 @@ query user_images verb=GET {
   
     // 3. Zdjęcia BEZ adnotacji - query tylko image bez JOIN
     db.query image {
-      where = $db.image.uploaded_by_id == $auth.id && $db.image.source ilike "user_upload"
+      where = $db.image.uploaded_by_id == $auth.id
       return = {type: "list"}
     } as $all_images
   
