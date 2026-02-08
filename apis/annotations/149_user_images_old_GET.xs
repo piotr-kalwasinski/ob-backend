@@ -1,5 +1,5 @@
 // Zwraca 2 tablice z opisanymi i nieopisanymi zdjeciami ktore uploadowal user
-query user_images verb=GET {
+query user_images_old verb=GET {
   api_group = "Annotations"
   auth = "user"
 
