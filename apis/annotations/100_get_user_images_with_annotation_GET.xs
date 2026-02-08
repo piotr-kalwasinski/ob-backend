@@ -39,7 +39,7 @@ query get_user_images_with_annotation verb=GET {
   
     // 3. Zdjęcia BEZ adnotacji - query tylko image bez JOIN
     db.query image {
-      where = $db.image.uploaded_by_id == $auth.id
+      where = $db.image.uploaded_by_id == $auth.id && $db.image.source_scope == "INTERNAL"
       return = {type: "list"}
     } as $all_images
   
