@@ -7,80 +7,57 @@ query user_images verb=GET {
   }
 
   stack {
-    // 1. Walidacja użytkownika
     db.get user {
       field_name = "id"
       field_value = $auth.id
     } as $user1
   
-    precondition ($user1.id != null) {
-      error_type = "unauthorized"
-    }
-  
-    // 2. Zdjęcia Z adnotacjami (INNER JOIN + Add-on)
     db.query image {
       join = {
         annotation: {
           table: "annotation"
-          where: $db.image.id == $db.annotation.image_id && $db.annotation.user_id == $auth.id
+          where: $db.image.id == $db.annotation.image_id
         }
       }
     
+      where = $db.image.uploaded_by_id == $user1.id && $db.image.source_scope == "INTERNAL"
+      eval = {
+        narrative_description: $db.annotation.narrative_description
+        factual_description  : $db.annotation.factual_description
+        file_path_small      : $db.image.file_path|concat:"?tpl=small"
+        file_path_oryginal   : $db.image.file_path|concat:"?tpl=oryginal"
+        file_path            : $db.image.file_path|concat:"?tpl=big:box"
+      }
+    
       return = {type: "list"}
-      addon = [
-        {
-          name : "annotation_of_image"
-          input: {image_id: $output.id}
-          as   : "_annotation_of_image"
-        }
+      output = [
+        "file_name"
+        "file_format"
+        "width"
+        "height"
+        "file_size"
+        "source"
+        "source_uri"
+        "source_type"
+        "source_scope"
+        "external_id"
+        "uploaded_at"
+        "is_user_generated"
+        "category_id"
+        "narrative_description"
+        "factual_description"
+        "file_path_small"
+        "file_path_oryginal"
+        "file_path"
       ]
-    } as $annotated
-  
-    // 3. Zdjęcia BEZ adnotacji - query tylko image bez JOIN
-    db.query image {
-      where = $db.image.uploaded_by_id == $auth.id
-      return = {type: "list"}
-    } as $all_images
-  
-    // 4. Pobierz wszystkie image_id które mają adnotacje
-    db.query annotation {
-      where = $db.annotation.user_id == $auth.id
-      return = {type: "list"}
-    } as $annotations_list
-  
-    // 5. Stwórz tablicę ID zdjęć z adnotacjami
-    var $annotated_image_ids {
-      value = []
-    }
-  
-    foreach ($annotations_list) {
-      each as $ann {
-        array.push $annotated_image_ids {
-          value = `$ann.image_id`
-        }
-      }
-    }
-  
-    // 6. Filtruj zdjęcia które NIE mają adnotacji
-    var $unannotated {
-      value = []
-    }
-  
-    foreach ($all_images) {
-      each as $img {
-        conditional {
-          if (`$annotated_image_ids|in:$img.id` == false) {
-            array.push $unannotated {
-              value = `$img`
-            }
-          }
-        }
-      }
-    }
+    } as $x1_image_annotated_list
   
     // 7. Przygotuj response z obiema listami
     var $result {
-      value = {annotated: $annotated, unannotated: $unannotated}
+      value = {
+        annotated  : $x1_image_annotated_list
+        unannotated: $unannotated
+      }
     }
   }
 
