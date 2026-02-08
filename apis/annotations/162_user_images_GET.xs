@@ -31,7 +31,9 @@ query user_images verb=GET {
     
       return = {type: "list"}
       output = [
+        "id"
         "file_name"
+        "file_path"
         "file_format"
         "width"
         "height"
@@ -72,7 +74,9 @@ query user_images verb=GET {
     
       return = {type: "list"}
       output = [
+        "id"
         "file_name"
+        "file_path"
         "file_format"
         "width"
         "height"
