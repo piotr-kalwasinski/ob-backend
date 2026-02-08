@@ -85,10 +85,10 @@ query "external_image_v2_ak/display" verb=GET {
 
   response = $image_response.response.result
   cache = {
-    ttl       : 3600
+    ttl       : 240
     input     : true
     auth      : true
-    datasource: true
+    datasource: false
     ip        : false
     headers   : []
     env       : []
