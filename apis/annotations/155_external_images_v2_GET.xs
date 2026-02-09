@@ -52,7 +52,7 @@ query external_images_v2 verb=GET {
           url = "https://aktywakcja.bielik.ai/api/v2/images"
           method = "GET"
           params = {}
-            |set:"category":$category1.akty_bielik_id
+            |set:"category_id":$category1.akty_bielik_id
             |set:"page":$input.page
             |set:"per_page":$input.page_size
           headers = []
