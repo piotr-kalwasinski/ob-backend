@@ -16,9 +16,15 @@ query user_weekly_goal verb=PATCH {
       error_type = "accessdenied"
     }
   
+    db.query user_weekly_goal {
+      where = $db.user_weekly_goal.user_id == $auth.id
+      sort = {user_weekly_goal.created_at: "desc"}
+      return = {type: "single"}
+    } as $user_weekly_goal2
+  
     db.edit user_weekly_goal {
-      field_name = "user_id"
-      field_value = $auth.id
+      field_name = "id"
+      field_value = $user_weekly_goal2.id
       data = {weekly_goal_id: $input.weekly_goal}
     } as $user_weekly_goal1
   }
