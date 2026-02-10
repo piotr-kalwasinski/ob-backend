@@ -51,11 +51,6 @@ query external_images_v2 verb=GET {
           input = {api1: $api1, annotation_ids: $annotated_ids}
         } as $resp
       
-        var.update $resp {
-          value = $resp
-            |filter:!($this.id|in:$annotated_ids)
-        }
-      
         var.update $x1_result {
           value = $resp
         }
@@ -84,11 +79,6 @@ query external_images_v2 verb=GET {
         function.run getImagesFromAktywAkcja {
           input = {api1: $api1, annotation_ids: $annotated_ids}
         } as $resp
-      
-        var.update $resp {
-          value = $resp
-            |filter:!($this.id|in:$annotated_ids)
-        }
       
         var.update $x1_result {
           value = $resp

@@ -1,9 +1,7 @@
 function getImagesFromAktywAkcja {
   input {
     json api1?
-    object annotation_list? {
-      schema
-    }
+    int[] annotation_ids?
   }
 
   stack {
@@ -15,18 +13,15 @@ function getImagesFromAktywAkcja {
       value = $input.api1.response.result.images
     }
   
-    var $x1_external_list {
-      value = `$input.annotation_list|get:"external_image_id"`
-    }
-  
     foreach ($x1_row) {
       each as $item {
         var $x1_image_url {
           value = $item.image_url|json_encode
         }
       
+        // Condition to check if item.id does NOT exist in the external list
         conditional {
-          if ((!($input.annotation_list|get:"external_image_id"|has:$item.id)) != true) {
+          if ($item.id|has:$input.annotation_ids) {
             array.push $x1_result {
               value = $item
             }
