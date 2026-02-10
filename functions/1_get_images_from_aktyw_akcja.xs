@@ -21,8 +21,12 @@ function getImagesFromAktywAkcja {
           value = $item.image_url|json_encode
         }
       
-        array.push $x1_result {
-          value = $item
+        conditional {
+          if ((!($input.annotation_list|get:"external_image_id"|has:$item.id)) != true) {
+            array.push $x1_result {
+              value = $item
+            }
+          }
         }
       }
     }
