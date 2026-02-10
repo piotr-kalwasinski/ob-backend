@@ -15,6 +15,10 @@ function getImagesFromAktywAkcja {
       value = $input.api1.response.result.images
     }
   
+    var $x1_external_list {
+      value = `$input.annotation_list|get:"external_image_id"`
+    }
+  
     foreach ($x1_row) {
       each as $item {
         var $x1_image_url {
