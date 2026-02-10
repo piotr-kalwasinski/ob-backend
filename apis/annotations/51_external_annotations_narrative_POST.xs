@@ -75,6 +75,7 @@ query external_annotations_narrative verb=POST {
         image_id                  : $x1_image_uuid
         user_id                   : $auth.id
         verified_by_user_id       : null
+        is_external_image         : true
       }
     } as $annotation1
   
