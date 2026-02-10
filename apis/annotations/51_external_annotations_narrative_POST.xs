@@ -21,10 +21,12 @@ query external_annotations_narrative verb=POST {
     conditional {
       if ($x1_image_external == null) {
         api.request {
-          url = 'https://aktywakcja.bielik.ai/api/images/' ~$input.external_image_id
+          url = $env.aktywacja_api_v2~'/images/' ~$input.external_image_id
           method = "GET"
           headers = []
-            |push:"X-API-Key: yktUs6sMcpbZ6afSuSc4ADjfw57RESCAveIScoUsHIMESPETrADyNCEntEaSEBoaHouveFy"
+            |push:("X-API-Key: "
+              |concat:$env.aktywakcja_token_v2:""
+            )
         } as $api1
       
         db.add image {
