@@ -15,7 +15,7 @@ function getImagesFromAktywAkcja {
   
     foreach ($x1_row) {
       each as $item {
-        array.push $x1_result {
+        !array.push $x1_result {
           value = $item
         }
       
@@ -24,7 +24,7 @@ function getImagesFromAktywAkcja {
         }
       
         // Condition to check if item.id does NOT exist in the external list
-        !conditional {
+        conditional {
           if (( $input.annotation_ids|find:$$==$var.item.id) != $item.id) {
             array.push $x1_result {
               value = $item
