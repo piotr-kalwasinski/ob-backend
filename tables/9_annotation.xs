@@ -21,6 +21,8 @@ table annotation {
     uuid? verified_by_user_id? {
       table = "user"
     }
+  
+    bool is_external_image?
   }
 
   index = [
