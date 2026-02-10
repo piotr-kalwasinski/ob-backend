@@ -21,7 +21,7 @@ function getImagesFromAktywAkcja {
       
         // Condition to check if item.id does NOT exist in the external list
         conditional {
-          if (($input.annotation_ids|contains:$item.id) == false) {
+          if (( $input.annotation_ids|find:$$==$var.item.id) == $item.id) {
             array.push $x1_result {
               value = $item
             }
