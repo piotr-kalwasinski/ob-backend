@@ -15,12 +15,16 @@ function getImagesFromAktywAkcja {
   
     foreach ($x1_row) {
       each as $item {
+        array.push $x1_result {
+          value = $item
+        }
+      
         !var $x1_image_url {
           value = $item.image_url|json_encode
         }
       
         // Condition to check if item.id does NOT exist in the external list
-        conditional {
+        !conditional {
           if (( $input.annotation_ids|find:$$==$var.item.id) != $item.id) {
             array.push $x1_result {
               value = $item
@@ -29,8 +33,6 @@ function getImagesFromAktywAkcja {
         }
       }
     }
-  
-    util.get_vars as $__all_vars
   }
 
   response = $x1_result
