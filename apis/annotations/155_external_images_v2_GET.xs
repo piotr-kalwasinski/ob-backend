@@ -10,13 +10,22 @@ query external_images_v2 verb=GET {
   }
 
   stack {
-    !db.query image {
-      return = {type: "list"}
-    } as $image
-  
     var $x1_result {
       value = []
     }
+  
+    db.query annotation {
+      join = {
+        image: {
+          table: "image"
+          where: $db.annotation.image_id == $db.image.id
+        }
+      }
+    
+      where = $db.annotation.user_id == $auth.id && $db.annotation.is_external_image == true
+      eval = {external_image_id: $db.image.external_id}
+      return = {type: "list"}
+    } as $annotation1
   
     conditional {
       if ($input.category_uuid == null) {
@@ -34,7 +43,7 @@ query external_images_v2 verb=GET {
         } as $api1
       
         function.run getImagesFromAktywAkcja {
-          input = {api1: $api1}
+          input = {api1: $api1, annotation_list: $annotation1}
         } as $resp
       
         var.update $x1_result {
@@ -63,7 +72,7 @@ query external_images_v2 verb=GET {
         } as $api1
       
         function.run getImagesFromAktywAkcja {
-          input = {api1: $api1}
+          input = {api1: $api1, annotation_list: $annotation1}
         } as $resp
       
         var.update $x1_result {
