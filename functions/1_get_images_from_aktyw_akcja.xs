@@ -1,6 +1,9 @@
 function getImagesFromAktywAkcja {
   input {
     json api1?
+    object annotation_list? {
+      schema
+    }
   }
 
   stack {
