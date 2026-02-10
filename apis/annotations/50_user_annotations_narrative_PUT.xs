@@ -29,6 +29,7 @@ query user_annotations_narrative verb=PUT {
         created_at           : now
         narrative_description: $input.narrative_description
         updated_at           : now
+        is_external_image    : false
       }
     } as $annotation1
   }
