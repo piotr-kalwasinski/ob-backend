@@ -152,6 +152,12 @@ query user_weekly_goal verb=GET {
             }
           }
         
+          elseif ($procentage > 100) {
+            var $motivational_message {
+              value = "WOW! Gratulaceje!"
+            }
+          }
+        
           else {
             var $motivational_message {
               value = $weekly_goal1.motivation_message_nearcomplete
