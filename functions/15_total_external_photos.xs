@@ -1,4 +1,4 @@
-function avaiable_photos {
+function total_external_photos {
   input {
   }
 
