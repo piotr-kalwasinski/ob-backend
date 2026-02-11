@@ -11,18 +11,24 @@ query community_stats verb=GET {
       field_value = $auth.id
     } as $user1
   
+    function.run total_external_photos as $total_image_count
+  
     // Wszystkie dostepne opisy
     db.query annotation {
       return = {type: "count"}
     } as $annotation1
   
-    db.query image {
-      return = {type: "count"}
-    } as $image1
-  
     // Przelicz liczbe unikalnych opisanych zdjec 
     db.query annotation {
-      where = $db.annotation.image_id not overlaps? ""
+      join = {
+        image: {
+          table: "image"
+          type : "left"
+          where: $db.image.id == $db.annotation.image_id
+        }
+      }
+    
+      where = $db.annotation.image_id not overlaps? "" && $db.image.source_type == "aktywakcja"
       return = {type: "count"}
       output = [
         "id"
@@ -40,11 +46,19 @@ query community_stats verb=GET {
     } as $annotation2
   
     var $x1 {
-      value = $image1 - $annotation2
+      value = $total_image_count - $annotation2
     }
   
     db.query annotation {
-      where = $db.annotation.created_at >= $user1.last_login
+      join = {
+        image: {
+          table: "image"
+          type : "left"
+          where: $db.annotation.image_id == $db.image.id
+        }
+      }
+    
+      where = $db.annotation.created_at >= $user1.last_login && $db.image.source_type == "aktywakcja"
       return = {type: "count"}
     } as $annotation3
   
