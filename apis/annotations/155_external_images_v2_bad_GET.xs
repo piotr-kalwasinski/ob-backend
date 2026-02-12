@@ -1,6 +1,6 @@
 // Queries LOCAL cache instead of external API. Native SQL pagination — no empty pages.
 // Uses LEFT JOIN to exclude images already annotated by the current user.
-query external_images_v2 verb=GET {
+query external_images_v2_BAD verb=GET {
   api_group = "Annotations"
   auth = "user"
 
