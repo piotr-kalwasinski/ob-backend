@@ -1,5 +1,5 @@
 // Queries LOCAL cache instead of external API. Native SQL pagination — no empty pages.
-query external_images_v3 verb=GET {
+query external_images_v2 verb=GET {
   api_group = "Annotations"
   auth = "user"
 
@@ -77,7 +77,7 @@ query external_images_v3 verb=GET {
     
       elseif (($annotated_ids|count) > 0) {
         db.query external_image_cache {
-          where = (!($db.external_image_cache.external_id|in:$annotated_ids)) == true
+          where = $db.external_image_cache.external_id not in $annotated_ids
           sort = {external_id: "asc"}
           return = {
             type  : "list"
