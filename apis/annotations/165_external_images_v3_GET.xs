@@ -77,7 +77,7 @@ query external_images_v3 verb=GET {
     
       elseif (($annotated_ids|count) > 0) {
         db.query external_image_cache {
-          where = $db.external_image_cache.external_id not in $annotated_ids
+          where = (!($db.external_image_cache.external_id|in:$annotated_ids)) == true
           sort = {external_id: "asc"}
           return = {
             type  : "list"
