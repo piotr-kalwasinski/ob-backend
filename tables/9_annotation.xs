@@ -23,6 +23,7 @@ table annotation {
     }
   
     bool is_external_image?
+    int external_image_id?
   }
 
   index = [
