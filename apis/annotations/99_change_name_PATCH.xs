@@ -13,7 +13,7 @@ query change_name verb=PATCH {
     }
   
     db.query user {
-      where = $db.user.name == $input.nickname
+      where = $db.user.name == $input.name
       return = {type: "count"}
     } as $user3
   
