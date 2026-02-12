@@ -12,6 +12,16 @@ query change_name verb=PATCH {
       error = "Fill new name"
     }
   
+    db.query user {
+      where = $db.user.name == $input.nickname
+      return = {type: "count"}
+    } as $user3
+  
+    precondition ($user3 == 0) {
+      error_type = "inputerror"
+      payload = "Taka nazwa istnieje "
+    }
+  
     db.get user {
       field_name = "id"
       field_value = $auth.id
