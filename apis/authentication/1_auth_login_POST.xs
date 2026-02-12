@@ -11,12 +11,16 @@ query "auth/login" verb=POST {
     db.get user {
       field_name = "email"
       field_value = $input.email
-      output = ["id", "created_at", "name", "email", "password"]
+      output = ["id", "created_at", "name", "email", "password", "status"]
     } as $user
   
     precondition ($user != null) {
       error_type = "accessdenied"
       error = "Invalid Credentials."
+    }
+  
+    precondition ($user.status != "DELETED") {
+      error_type = "unauthorized"
     }
   
     security.check_password {
