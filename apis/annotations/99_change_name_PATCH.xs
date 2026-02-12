@@ -19,7 +19,7 @@ query change_name verb=PATCH {
   
     precondition ($user3 == 0) {
       error_type = "inputerror"
-      payload = "Taka nazwa istnieje "
+      error = "Nazwa jest zajęta "
     }
   
     db.get user {
