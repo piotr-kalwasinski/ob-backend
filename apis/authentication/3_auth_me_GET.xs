@@ -16,10 +16,15 @@ query "auth/me" verb=GET {
         "name"
         "email"
         "team_id"
+        "status"
         "avatar_path"
         "leaderbord_visible"
       ]
     } as $user
+  
+    precondition ($user.status != "DELETED") {
+      error_type = "accessdenied"
+    }
   
     conditional {
       if ($user.team_id != null) {
