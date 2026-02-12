@@ -17,7 +17,7 @@ query delete_user verb=PUT {
   
     db.edit user {
       field_name = "id"
-      field_value = ""
+      field_value = $auth.id
       data = {status: "DELETED"}
     } as $user2
   }
