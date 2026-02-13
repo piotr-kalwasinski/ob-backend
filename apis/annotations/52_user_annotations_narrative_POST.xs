@@ -6,6 +6,7 @@ query user_annotations_narrative verb=POST {
   input {
     uuid? image_uuid?
     text narrative_description filters=trim
+    uuid? category?
   }
 
   stack {
@@ -44,6 +45,12 @@ query user_annotations_narrative verb=POST {
     function.run icrement_annotated_photos {
       input = {user_id: $auth.id}
     } as $func2
+  
+    db.edit image {
+      field_name = "id"
+      field_value = $input.image_uuid
+      data = {category_id: $input.category}
+    } as $image2
   }
 
   response = "OK"
