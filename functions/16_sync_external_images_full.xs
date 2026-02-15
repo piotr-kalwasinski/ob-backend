@@ -109,10 +109,6 @@ function syncExternalImagesFull {
                               value = -1
                             }
                           
-                            var $records_inserted {
-                              value = $records_inserted + 1
-                            }
-                          
                             db.add external_image_cache {
                               data = {
                                 external_id        : $image.id
@@ -133,6 +129,10 @@ function syncExternalImagesFull {
                                 error              : true
                               }
                             } as $new_record
+                          
+                            var $records_inserted {
+                              value = $records_inserted + 1
+                            }
                           }
                         
                           else {
@@ -140,9 +140,12 @@ function syncExternalImagesFull {
                               data = {
                                 external_id        : $image.id
                                 image_url          : $image.image_url
+                                thumbnail_url      : ""
                                 category_id        : $image.category.id
                                 category_name      : $image.category.name
                                 external_created_at: $image.created_at
+                                synced_at          : "now"
+                                raw_data           : $image
                                 added_by_bot       : $image.added_by_bot
                                 context_data       : $image.context_data
                                 context_source     : $image.context_source
@@ -151,8 +154,7 @@ function syncExternalImagesFull {
                                 file_path          : $image.file_path
                                 submission_id      : $image.submission_id
                                 unauthorised       : $image.unauthorised
-                                synced_at          : "now"
-                                raw_data           : $image
+                                error              : false
                               }
                             } as $new_record
                           
