@@ -24,6 +24,8 @@ table external_image_cache {
     object context_source? {
       schema
     }
+  
+    timestamp? created_at?
   }
 
   index = [
