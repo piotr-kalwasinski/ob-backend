@@ -1,5 +1,5 @@
 // Stara wersja bez usuwania
-query external_images_v2 verb=GET {
+query external_images_v2_old2 verb=GET {
   api_group = "Annotations"
   auth = "user"
 
