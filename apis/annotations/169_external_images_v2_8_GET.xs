@@ -4,9 +4,6 @@ query external_images_v2_8 verb=GET {
   auth = "user"
 
   input {
-    // Numer strony zewnętrznego API, od której zacząć (domyślnie 1)
-    int cursor?
-  
     // Ile niezanotowanych obrazów zwrócić
     int page_size?
   
@@ -41,25 +38,50 @@ query external_images_v2_8 verb=GET {
   
     conditional {
       if ($input.category_uuid == null) {
-        api.request {
-          url = "https://aktywakcja.bielik.ai/api/v2/images"
-          method = "GET"
-          params = {}
-            |set:"page":$input.page
-            |set:"per_page":$input.page_size
-          headers = []
-            |push:("X-API-Key: "
-              |concat:$env.aktywakcja_token_v2:""
-            )
-            |push:"Content-Type: application/json"
-        } as $api1
+        db.query external_image_cache {
+          where = $db.external_image_cache.external_id not in $annotated_ids
+          return = {
+            type  : "list"
+            paging: {page: $input.page, per_page: $input.page_size}
+          }
+        
+          output = [
+            "itemsReceived"
+            "curPage"
+            "nextPage"
+            "prevPage"
+            "offset"
+            "perPage"
+            "items.id"
+            "items.external_id"
+            "items.image_url"
+            "items.thumbnail_url"
+            "items.category_id"
+            "items.category_name"
+            "items.external_created_at"
+            "items.synced_at"
+          ]
+        } as $external_image_cache1
       
-        function.run getImagesFromAktywAkcja {
-          input = {api1: $api1, annotation_ids: $annotated_ids}
-        } as $resp
+        !db.query external_image_cache {
+          join = {
+            annotation: {
+              table: "annotation"
+              type : "left"
+              where: $db.annotation.external_image_id == $db.external_image_cache.external_id
+            }
+          }
+        
+          where = $db.annotation.is_external_image == true && $db.annotation.user_id == $auth.id
+          eval = {
+            narrative_description: $db.annotation.narrative_description
+          }
+        
+          return = {type: "list"}
+        } as $external_image_cache1
       
         var.update $x1_result {
-          value = $resp
+          value = $external_image_cache1.items
         }
       }
     
@@ -69,38 +91,36 @@ query external_images_v2_8 verb=GET {
           field_value = $input.category_uuid
         } as $category1
       
-        api.request {
-          url = "https://aktywakcja.bielik.ai/api/v2/images"
-          method = "GET"
-          params = {}
-            |set:"category_id":$category1.akty_bielik_id
-            |set:"page":$input.page
-            |set:"per_page":$input.page_size
-          headers = []
-            |push:("X-API-Key: "
-              |concat:$env.aktywakcja_token_v2:""
-            )
-            |push:"Content-Type: application/json"
-        } as $api1
-      
-        function.run getImagesFromAktywAkcja {
-          input = {api1: $api1, annotation_ids: $annotated_ids}
-        } as $resp
+        db.query external_image_cache {
+          where = $db.external_image_cache.external_id not in $annotated_ids && $db.external_image_cache.category_id == $category1.akty_bielik_id
+          return = {
+            type  : "list"
+            paging: {page: $input.page, per_page: $input.page_size}
+          }
+        
+          output = [
+            "itemsReceived"
+            "curPage"
+            "nextPage"
+            "prevPage"
+            "offset"
+            "perPage"
+            "items.id"
+            "items.external_id"
+            "items.image_url"
+            "items.thumbnail_url"
+            "items.category_id"
+            "items.category_name"
+            "items.external_created_at"
+            "items.synced_at"
+          ]
+        } as $external_image_cache1
       
         var.update $x1_result {
-          value = $resp
+          value = $external_image_cache1.items
         }
       }
     }
-  
-    !function.run getImagesFromAktywAkcja {
-      input = {
-        cursor        : $input.cursor
-        page_size     : $input.page_size
-        category_uuid : $input.category_uuid
-        annotation_ids: $annotated_ids
-      }
-    } as $result
   }
 
   response = $x1_result
