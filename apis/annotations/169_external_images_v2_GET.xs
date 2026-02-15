@@ -73,23 +73,6 @@ query external_images_v2 verb=GET {
           ]
         } as $external_image_cache1
       
-        !db.query external_image_cache {
-          join = {
-            annotation: {
-              table: "annotation"
-              type : "left"
-              where: $db.annotation.external_image_id == $db.external_image_cache.external_id
-            }
-          }
-        
-          where = $db.annotation.is_external_image == true && $db.annotation.user_id == $auth.id
-          eval = {
-            narrative_description: $db.annotation.narrative_description
-          }
-        
-          return = {type: "list"}
-        } as $external_image_cache1
-      
         var.update $x1_result {
           value = $external_image_cache1.items
         }
