@@ -20,6 +20,10 @@ table external_image_cache {
     object context_data? {
       schema
     }
+  
+    object context_source? {
+      schema
+    }
   }
 
   index = [
