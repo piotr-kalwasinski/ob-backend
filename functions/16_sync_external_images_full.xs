@@ -103,20 +103,63 @@ function syncExternalImagesFull {
                   
                     conditional {
                       if ($existing == null) {
-                        db.add external_image_cache {
-                          data = {
-                            external_id        : $image.id
-                            image_url          : $image.image_url
-                            category_id        : $image.category.id
-                            category_name      : $image.category.name
-                            external_created_at: $image.created_at
-                            synced_at          : "now"
-                            raw_data           : $image
+                        conditional {
+                          if ($image.category == null) {
+                            var $x1_image_category_id {
+                              value = -1
+                            }
+                          
+                            var $records_inserted {
+                              value = $records_inserted + 1
+                            }
+                          
+                            db.add external_image_cache {
+                              data = {
+                                external_id        : $image.id
+                                image_url          : $image.image_url
+                                thumbnail_url      : ""
+                                category_id        : $x1_image_category_id
+                                external_created_at: $image.created_at
+                                synced_at          : "now"
+                                raw_data           : $image
+                                added_by_bot       : $image.added_by_bot
+                                context_data       : $image.context_data
+                                context_source     : $image.context_source
+                                created_at         : $image.created_at
+                                file_name          : $image.file_name
+                                file_path          : $image.file_path
+                                submission_id      : $image.submission_id
+                                unauthorised       : $image.unauthorised
+                                error              : true
+                              }
+                            } as $new_record
                           }
-                        } as $new_record
-                      
-                        var $records_inserted {
-                          value = $records_inserted + 1
+                        
+                          else {
+                            db.add external_image_cache {
+                              data = {
+                                external_id        : $image.id
+                                image_url          : $image.image_url
+                                category_id        : $image.category.id
+                                category_name      : $image.category.name
+                                external_created_at: $image.created_at
+                                added_by_bot       : $image.added_by_bot
+                                context_data       : $image.context_data
+                                context_source     : $image.context_source
+                                created_at         : $image.created_at
+                                file_name          : $image.file_name
+                                file_path          : $image.file_path
+                                submission_id      : $image.submission_id
+                                unauthorised       : $image.unauthorised
+                                synced_at          : "now"
+                                raw_data           : $image
+                              }
+                            } as $new_record
+                          
+                            var $records_inserted {
+                              value = $records_inserted + 1
+                            }
+                          }
                         }
                       }
                     }
