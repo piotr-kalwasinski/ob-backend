@@ -27,6 +27,7 @@ table external_image_cache {
   
     timestamp? created_at?
     text file_name? filters=trim
+    text file_path? filters=trim
   }
 
   index = [
