@@ -30,6 +30,7 @@ table external_image_cache {
     text file_path? filters=trim
     int submission_id?
     bool unauthorised?
+    bool error?
   }
 
   index = [
