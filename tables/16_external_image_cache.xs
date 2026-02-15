@@ -21,10 +21,7 @@ table external_image_cache {
       schema
     }
   
-    object context_source? {
-      schema
-    }
-  
+    text context_source?
     timestamp? created_at?
     text file_name? filters=trim
     text file_path? filters=trim
