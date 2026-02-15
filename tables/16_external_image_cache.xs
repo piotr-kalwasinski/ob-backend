@@ -17,6 +17,9 @@ table external_image_cache {
     timestamp synced_at?=now
     json raw_data?
     bool added_by_bot?
+    object context_data? {
+      schema
+    }
   }
 
   index = [
