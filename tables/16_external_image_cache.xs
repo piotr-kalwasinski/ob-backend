@@ -22,7 +22,7 @@ table external_image_cache {
     }
   
     text context_source?
-    timestamp? created_at?
+    text? created_at?
     text file_name? filters=trim
     text file_path? filters=trim
     int submission_id?
