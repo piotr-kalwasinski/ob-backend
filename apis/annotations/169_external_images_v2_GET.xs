@@ -39,7 +39,7 @@ query external_images_v2 verb=GET {
     conditional {
       if ($input.category_uuid == null) {
         db.query external_image_cache {
-          where = $db.external_image_cache.external_id not in $annotated_ids
+          where = $db.external_image_cache.external_id not in? $annotated_ids
           eval = {id: $db.external_image_cache.external_id}
           return = {
             type  : "list"
@@ -85,7 +85,7 @@ query external_images_v2 verb=GET {
         } as $category1
       
         db.query external_image_cache {
-          where = $db.external_image_cache.external_id not in $annotated_ids && $db.external_image_cache.category_id == $category1.akty_bielik_id
+          where = $db.external_image_cache.external_id not in? $annotated_ids && $db.external_image_cache.category_id == $category1.akty_bielik_id
           return = {
             type  : "list"
             paging: {page: $input.page, per_page: $input.page_size}
