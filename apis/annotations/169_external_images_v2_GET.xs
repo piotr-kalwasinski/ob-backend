@@ -86,6 +86,41 @@ query external_images_v2 verb=GET {
       
         db.query external_image_cache {
           where = $db.external_image_cache.external_id not in? $annotated_ids && $db.external_image_cache.category_id == $category1.akty_bielik_id
+          eval = {id: $db.external_image_cache.external_id}
+          return = {
+            type  : "list"
+            paging: {page: $input.page, per_page: $input.page_size}
+          }
+        
+          output = [
+            "itemsReceived"
+            "curPage"
+            "nextPage"
+            "prevPage"
+            "offset"
+            "perPage"
+            "items.id"
+            "items.external_id"
+            "items.image_url"
+            "items.thumbnail_url"
+            "items.category_id"
+            "items.category_name"
+            "items.external_created_at"
+            "items.synced_at"
+            "items.added_by_bot"
+            "items.context_data"
+            "items.context_source"
+            "items.created_at"
+            "items.file_name"
+            "items.file_path"
+            "items.submission_id"
+            "items.unauthorised"
+            "items.id"
+          ]
+        } as $external_image_cache1
+      
+        !db.query external_image_cache {
+          where = $db.external_image_cache.external_id not in? $annotated_ids && $db.external_image_cache.category_id == $category1.akty_bielik_id
           return = {
             type  : "list"
             paging: {page: $input.page, per_page: $input.page_size}
