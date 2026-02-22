@@ -1,6 +1,7 @@
 // Get a leaderboard of annotated images
 query leaderboard verb=GET {
   api_group = "Annotations"
+  auth = "user"
 
   input {
   }
