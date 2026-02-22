@@ -1,5 +1,6 @@
 query "external_image_v2_ak/display" verb=GET {
   api_group = "Annotations"
+  auth = "user"
 
   input {
     // The unique identifier for the image to be displayed.
