@@ -36,22 +36,6 @@ query user_stats verb=GET {
         } as $user_stat1
       }
     }
-  
-    var $consecutive_days {
-      value = 20
-    }
-  
-    var $added_pictures {
-      value = 67
-    }
-  
-    var $described_pictures {
-      value = 9
-    }
-  
-    var $top_weekly_descriptions {
-      value = 18
-    }
   }
 
   response = {
