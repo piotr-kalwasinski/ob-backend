@@ -16,7 +16,7 @@ query user_weekly_goal verb=GET {
     }
   
     db.query user_weekly_goal {
-      where = $db.user_weekly_goal.user_id == $auth.id && $db.user_weekly_goal.start_of_week <= now && $db.user_weekly_goal.end_of_the_week >= now
+      where = `$db.user_weekly_goal.user_id == $auth.id && $db.user_weekly_goal.start_of_week <= now && $db.user_weekly_goal.end_of_the_week >= now`
       sort = {user_weekly_goal.end_of_the_week: "desc"}
       return = {type: "single"}
     } as $user_weekly_goal1
