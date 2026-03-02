@@ -1,5 +1,5 @@
 // Query all user_image_favorite records
-query user_image_favorite_0 verb=GET {
+query user_image_favorite verb=GET {
   api_group = "Annotations"
   auth = "user"
 
