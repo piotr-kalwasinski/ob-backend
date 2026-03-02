@@ -1,5 +1,5 @@
 // Endpoint do poprawy tekstu przez LLMa
-query correct_grammar verb=GET {
+query correct_text verb=GET {
   api_group = "Annotations"
   auth = "user"
 
