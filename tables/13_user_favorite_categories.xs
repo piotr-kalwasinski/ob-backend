@@ -3,7 +3,10 @@ table user_favorite_categories {
 
   schema {
     int id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     uuid? user_id? {
       table = "user"
     }

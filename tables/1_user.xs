@@ -3,10 +3,16 @@ table user {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     text name filters=trim
     email? email filters=trim|lower
-    password? password filters=min:8|minAlpha:1|minDigit:1
+    password? password filters=min:8|minAlpha:1|minDigit:1 {
+      visibility = "internal"
+    }
+  
     text name_or_pseudonym?
     text auth_provider?
     timestamp registration_date?

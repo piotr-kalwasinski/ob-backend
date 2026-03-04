@@ -4,7 +4,10 @@ table team_stat {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     uuid team_id?
     int total_photos_annoted?
     int total_photos_added?

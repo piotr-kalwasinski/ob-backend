@@ -3,7 +3,10 @@ table login_history {
 
   schema {
     int id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     object auth? {
       schema
     }

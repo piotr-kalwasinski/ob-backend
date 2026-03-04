@@ -3,7 +3,10 @@ table weekly_goal {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     text name?
     text icon?
     int target_photos?

@@ -3,7 +3,10 @@ table user_stat {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     int consecutive_days?
     int total_photos_described?
     int total_photos_uploaded?

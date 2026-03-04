@@ -3,7 +3,10 @@ table user_achievement {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     timestamp achieved_at?
     int current_value?
     uuid user_id? {

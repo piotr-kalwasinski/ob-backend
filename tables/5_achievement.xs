@@ -3,7 +3,10 @@ table achievement {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     text name?
     text description?
     text icon?

@@ -40,6 +40,7 @@ query external_images_v2 verb=GET {
       if ($input.category_uuid == null) {
         db.query external_image_cache {
           where = $db.external_image_cache.external_id not in? $annotated_ids
+          sort = {"": "rand"}
           eval = {id: $db.external_image_cache.external_id}
           return = {
             type  : "list"

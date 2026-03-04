@@ -3,7 +3,10 @@ table user_image_favorite {
 
   schema {
     int id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     uuid? image_id?
     bool is_favorite?
     text external_image_id? filters=trim

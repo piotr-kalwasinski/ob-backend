@@ -3,7 +3,10 @@ table image {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     text file_name?
     text file_path?
     text file_format?

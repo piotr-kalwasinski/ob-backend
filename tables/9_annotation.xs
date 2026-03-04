@@ -3,7 +3,10 @@ table annotation {
 
   schema {
     uuid id
-    timestamp created_at?=now
+    timestamp created_at?=now {
+      visibility = "private"
+    }
+  
     text narrative_description?
     text factual_description?
     text auto_generated_description?
