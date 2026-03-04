@@ -4,10 +4,38 @@ query image verb=GET {
   auth = "user"
 
   input {
+    int id
+    int size?=900
   }
 
   stack {
+    db.get external_image_cache {
+      field_name = "external_id"
+      field_value = $input.id
+      output = [
+        "id"
+        "external_id"
+        "image_url"
+        "thumbnail_url"
+        "category_id"
+        "category_name"
+        "external_created_at"
+        "synced_at"
+        "added_by_bot"
+        "context_data"
+        "context_source"
+        "created_at"
+        "file_name"
+        "file_path"
+        "submission_id"
+        "unauthorised"
+      ]
+    } as $external_image_cache1
+  
+    var.update $external_image_cache1.image_url {
+      value = `$external_image_cache1.image_url | concat:$input.size:"?size="`
+    }
   }
 
-  response = null
+  response = $external_image_cache1
 }
