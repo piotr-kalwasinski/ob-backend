@@ -14,7 +14,7 @@ function updateUserAnnotationStat {
     } as $func2
   
     db.query user_weekly_goal {
-      where = $db.user_weekly_goal.user_id == $input.user_id && $db.user_weekly_goal.start_of_week == $func1 && $db.user_weekly_goal.end_of_the_week == $func2
+      where = $db.user_weekly_goal.user_id == $input.user_id
       sort = {user_weekly_goal.created_at: "desc"}
       return = {type: "single"}
     } as $user_weekly_goal1
@@ -26,8 +26,8 @@ function updateUserAnnotationStat {
         }
       
         db.edit user_weekly_goal {
-          field_name = "user_id"
-          field_value = $input.user_id
+          field_name = "id"
+          field_value = $user_weekly_goal1.id
           data = {photos_described: $x1}
         } as $user_weekly_goal2
       
