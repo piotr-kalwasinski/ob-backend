@@ -88,6 +88,13 @@ query external_annotations_narrative verb=POST {
     function.run updateUserAnnotationStat {
       input = {user_id: $auth.id}
     } as $func2
+  
+    function.run drop_from_favorite {
+      input = {
+        user_id          : $auth.id
+        external_image_id: `$input.external_image_id|to_int`
+      }
+    } as $func3
   }
 
   response = "OK"
