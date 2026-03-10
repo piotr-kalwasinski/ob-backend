@@ -14,7 +14,7 @@ function drop_from_favorite {
   
     conditional {
       if ($user_image_favorite1 != null) {
-        db.del user_favorite_categories {
+        db.del user_image_favorite {
           field_name = "id"
           field_value = $user_image_favorite1.id
         }
@@ -22,5 +22,5 @@ function drop_from_favorite {
     }
   }
 
-  response = $user_image_favorite1
+  response = "OK"
 }
