@@ -2,7 +2,10 @@ api_group "auth0-oauth" {
   canonical = "zszBAomk"
   cors = {
     mode       : "custom"
-    origins    : ["https://obywatel-bielik.web.app"]
+    origins    : [
+      "https://obywatel-bielik.web.app"
+      "https://obywatel-app.test.bielik.ai"
+    ]
     methods    : ["GET", "POST"]
     headers    : ["Authorization", "Content-Type"]
     credentials: false
