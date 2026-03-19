@@ -2,7 +2,11 @@ api_group Authentication {
   canonical = "S8fLcjZn"
   cors = {
     mode       : "custom"
-    origins    : ["https://obywatel-bielik.web.app", "http://localhost:5173"]
+    origins    : [
+      "https://obywatel-bielik.web.app"
+      "http://localhost:5173"
+      "https://obywatel-app.test.bielik.ai"
+    ]
     methods    : ["GET", "POST"]
     headers    : ["Authorization", "Content-Type"]
     credentials: false
