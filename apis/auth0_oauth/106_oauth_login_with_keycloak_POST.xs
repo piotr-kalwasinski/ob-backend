@@ -47,6 +47,12 @@ query "oauth/login-with-keycloak" verb=POST {
           }
         } as $user
       }
+    
+      else {
+        precondition ($user.status != "DELETED") {
+          error_type = "unauthorized"
+        }
+      }
     }
   
     security.create_auth_token {
