@@ -1,0 +1,42 @@
+table external_image_cache_Backup {
+  auth = false
+
+  schema {
+    uuid id
+  
+    // Image ID from AktywAkcja API (sequential integer, unique)
+    int external_id
+  
+    // Full image URL from AktywAkcja
+    text image_url filters=trim
+  
+    text thumbnail_url? filters=trim
+    int category_id?
+    text category_name? filters=trim
+    timestamp external_created_at?
+    timestamp synced_at?=now
+    json raw_data?
+    bool added_by_bot?
+    object context_data? {
+      schema
+    }
+  
+    text context_source?
+    text? created_at?
+    text file_name? filters=trim
+    text file_path? filters=trim
+    int submission_id?
+    bool unauthorised?
+    bool error?
+  }
+
+  index = [
+    {type: "primary", field: [{name: "id"}]}
+    {
+      type : "btree|unique"
+      field: [{name: "external_id", op: "asc"}]
+    }
+    {type: "btree", field: [{name: "category_id", op: "asc"}]}
+    {type: "btree", field: [{name: "synced_at", op: "desc"}]}
+  ]
+}
