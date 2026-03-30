@@ -1,4 +1,4 @@
-// Full sync: fetches ALL images from AktywAkcja API and inserts missing ones into external_image_cache.
+// Full sync: fetches ALL images from AktywAkcja API and inserts missing ones into external_image_cache_0.
 function syncExternalImagesFull {
   input {
     // Images per page when fetching from external API
@@ -96,7 +96,7 @@ function syncExternalImagesFull {
               
                 foreach ($images) {
                   each as $image {
-                    db.get external_image_cache {
+                    db.get external_image_cache_0 {
                       field_name = "external_id"
                       field_value = $image.id
                     } as $existing
@@ -109,7 +109,7 @@ function syncExternalImagesFull {
                               value = -1
                             }
                           
-                            db.add external_image_cache {
+                            db.add external_image_cache_0 {
                               data = {
                                 external_id        : $image.id
                                 image_url          : $image.image_url
@@ -136,7 +136,7 @@ function syncExternalImagesFull {
                           }
                         
                           else {
-                            db.add external_image_cache {
+                            db.add external_image_cache_0 {
                               data = {
                                 external_id        : $image.id
                                 image_url          : $image.image_url
