@@ -30,7 +30,7 @@ function syncExternalImagesIncremental {
         }
       
         // Count cached images
-        db.query external_image_cache {
+        db.query external_image_cache_0 {
           return = {type: "list"}
           output = ["id"]
         } as $cache_all
@@ -61,7 +61,7 @@ function syncExternalImagesIncremental {
         }
       
         // Step 2: Get max known external_id
-        db.query external_image_cache {
+        db.query external_image_cache_0 {
           sort = {external_id: "desc"}
           return = {type: "list", paging: {page: 1, per_page: 1}}
         } as $max_result
@@ -166,7 +166,7 @@ function syncExternalImagesIncremental {
                     // Only insert if external_id > max_known_id
                     conditional {
                       if ($image.id > $max_known_id) {
-                        db.add external_image_cache {
+                        db.add external_image_cache_0 {
                           data = {
                             external_id        : $image.id
                             image_url          : $image.image_url
