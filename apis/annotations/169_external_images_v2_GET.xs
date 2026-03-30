@@ -38,10 +38,10 @@ query external_images_v2 verb=GET {
   
     conditional {
       if ($input.category_uuid == null) {
-        db.query external_image_cache {
-          where = $db.external_image_cache.external_id not in? $annotated_ids
-          sort = {external_image_cache.external_id: "rand"}
-          eval = {id: $db.external_image_cache.external_id}
+        db.query external_image_cache_0 {
+          where = $db.external_image_cache_0.external_id not in? $annotated_ids
+          sort = {external_image_cache_0.external_id: "rand"}
+          eval = {id: $db.external_image_cache_0.external_id}
           return = {
             type  : "list"
             paging: {page: $input.page, per_page: $input.page_size}
@@ -70,12 +70,11 @@ query external_images_v2 verb=GET {
             "items.file_path"
             "items.submission_id"
             "items.unauthorised"
-            "items.id"
           ]
-        } as $external_image_cache1
+        } as $external_image_cache_01
       
         var.update $x1_result {
-          value = $external_image_cache1.items
+          value = $external_image_cache_01.items
         }
       }
     
@@ -85,10 +84,10 @@ query external_images_v2 verb=GET {
           field_value = $input.category_uuid
         } as $category1
       
-        db.query external_image_cache {
-          where = $db.external_image_cache.external_id not in? $annotated_ids && $db.external_image_cache.category_id == $category1.akty_bielik_id
-          sort = {external_image_cache.external_id: "rand"}
-          eval = {id: $db.external_image_cache.external_id}
+        db.query external_image_cache_0 {
+          where = $db.external_image_cache_0.external_id not in? $annotated_ids && $db.external_image_cache_0.category_id == $category1.akty_bielik_id
+          sort = {external_image_cache_0.external_id: "rand"}
+          eval = {id: $db.external_image_cache_0.external_id}
           return = {
             type  : "list"
             paging: {page: $input.page, per_page: $input.page_size}
@@ -117,12 +116,11 @@ query external_images_v2 verb=GET {
             "items.file_path"
             "items.submission_id"
             "items.unauthorised"
-            "items.id"
           ]
-        } as $external_image_cache1
+        } as $external_image_cache_01
       
         var.update $x1_result {
-          value = $external_image_cache1.items
+          value = $external_image_cache_01.items
         }
       }
     }
